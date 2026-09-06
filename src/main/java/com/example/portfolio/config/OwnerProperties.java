@@ -19,4 +19,13 @@ public class OwnerProperties {
     private String intro;
     private String email;
     private String github;
+
+    /**
+     * 주소가 있을 때만 칩을 보여준다 — {@link com.example.portfolio.domain.Project#isRepoLinked()} 와 같은 규칙이다.
+     * 비공개 저장소로 보내면 방문자에게는 404 라, 링크가 있는 편이 없는 것보다 나쁘다.
+     * 공개로 돌릴 때는 application.yaml 의 값이나 OWNER_GITHUB 환경변수만 채우면 다시 나온다.
+     */
+    public boolean isGithubLinked() {
+        return github != null && !github.isBlank();
+    }
 }

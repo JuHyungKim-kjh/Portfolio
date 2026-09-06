@@ -205,6 +205,26 @@ docker compose --env-file .env logs -f app
 
 브라우저에서 `http://<IP>/` 부터 상세까지 4장과 같은 경로를 확인한다.
 
+### 재빌드 없이 바꿀 수 있는 것
+
+`docker-compose.yml` 이 아래 둘을 **이름만 적는 형태**로 넘긴다. `.env` 에 있으면 전달되고,
+없으면 전달하지 않아 `application.yaml` 의 기본값이 그대로 쓰인다(빈 값을 넘겨 기본값을
+덮어쓰는 사고를 막는 형태다).
+
+| `.env` 에 넣는 줄 | 효과 |
+|---|---|
+| `OWNER_EMAIL=...` | 메인의 메일 칩 주소 |
+| `OWNER_GITHUB=https://github.com/JuHyungKim-kjh` | **메인의 `GitHub ↗` 칩이 다시 나온다.** 비워 두면 칩 자체가 렌더되지 않는다 — 비공개 저장소로 보내면 방문자에게 404 라, 링크가 있는 편이 없는 것보다 나쁘다 |
+
+```bash
+cd /opt/portfolio
+echo 'OWNER_GITHUB=https://github.com/JuHyungKim-kjh' >> .env
+docker compose --env-file .env up -d      # 컨테이너만 다시 만든다
+```
+
+> ⚠ 프로젝트 상세의 `GitHub ↗` (`projects.json` 의 `repoUrl`)는 **이미지 안에 있어 재배포가 필요하다.**
+> 저장소를 공개로 돌릴 때는 `repoUrl` 을 채우고 `main` 에 푸시한다.
+
 ---
 
 ## 8. 자동 배포 (GitHub Actions)

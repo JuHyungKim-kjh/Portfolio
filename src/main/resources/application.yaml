@@ -17,4 +17,7 @@ portfolio:
       Spring Boot 로 서비스를 처음부터 배포까지 만듭니다.
       화면을 쓰는 사람이 몇 번 헤매는지를 기준으로 판단하고, 만든 것은 실제로 띄워 두는 편입니다.
     email: ${OWNER_EMAIL:hound9844@gmail.com}
-    github: ${OWNER_GITHUB:https://github.com/}
+    # 비워 두면 메인의 GitHub 칩이 렌더되지 않는다(비공개 저장소는 방문자에게 404 다).
+    # 공개로 돌리면 여기에 주소를 넣거나, 재빌드 없이 EC2 의 .env 에
+    # OWNER_GITHUB=https://github.com/JuHyungKim-kjh 를 넣고 재기동하면 다시 나온다.
+    github: ${OWNER_GITHUB:}
