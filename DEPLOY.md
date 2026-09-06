@@ -12,6 +12,20 @@ git push main  ──▶ GitHub Actions  ──▶  ECR (portfolio)
                                                      └─ 호스트 80 → 컨테이너 8080
 ```
 
+## 현재 배포
+
+| | |
+|---|---|
+| 주소 | **http://3.34.68.7/** (탄력적 IP — 인스턴스를 껐다 켜도 바뀌지 않는다) |
+| 인스턴스 | `i-0000000000000000` · Ubuntu 26.04 LTS · x86_64 |
+| ECR | `000000000000.dkr.ecr.ap-northeast-2.amazonaws.com/portfolio` |
+| 인스턴스 역할 | `portfolio-ec2-role` (ECR ReadOnly + SSMManagedInstanceCore) |
+| 배포 사용자 | IAM `portfolio-gha` — SSM 대상이 이 인스턴스 하나로 좁혀져 있다 |
+| 서버 안 경로 | `/opt/portfolio` (`docker-compose.yml` · `.env` · `deploy.sh`) |
+
+> ⚠ **인스턴스를 다시 만들면** 세 곳을 함께 고쳐야 한다 — 인스턴스 역할 연결,
+> 저장소 Variable `EC2_INSTANCE_ID`, `portfolio-gha` 인라인 정책의 인스턴스 ARN.
+
 ---
 
 ## 0. 먼저 알아야 할 것 두 가지
