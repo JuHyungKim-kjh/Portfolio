@@ -1,0 +1,9 @@
+/gradlew text eol=lf
+*.bat text eol=crlf
+*.jar binary
+*.sh text eol=lf
+# ⚠ 배포 파일은 EC2(리눅스)에서 그대로 실행·읽힌다. CRLF 로 체크아웃되면
+#   .env 의 값 끝에 \r 이 붙어 docker pull 이 엉뚱한 태그를 찾고, bash 는
+#   `/usr/bin/env: 'bash\r'` 로 죽는다. core.autocrlf=true 환경에서 실제로 걸린다.
+deploy/** text eol=lf
+Dockerfile text eol=lf

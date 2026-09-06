@@ -1,0 +1,28 @@
+# 빌드 컨텍스트를 줄이는 목적도 있지만, 더 중요한 것은 `COPY src src` 가
+# 잔여 파일을 이미지에 넣지 않게 하는 것이다 —
+# src/main/resources/static 아래 파일은 그대로 인터넷에 서빙된다.
+
+.git
+.gitignore
+.gitattributes
+.github
+
+build
+.gradle
+out
+
+.idea
+*.iml
+*.iws
+*.ipr
+.vscode
+
+docs
+*.md
+!HELP.md
+
+deploy
+.env
+
+*.bak
+*.bak[0-9]

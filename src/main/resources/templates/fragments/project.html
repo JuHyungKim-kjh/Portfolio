@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<!-- 화면 이미지 한 장 (브라우저 창 모양 틀) -->
+<figure class="shot" th:fragment="frame(project, shot)">
+    <div class="bar">
+        <i></i><i></i><i></i>
+        <span th:text="${(project.deployed ? project.liveUrl : project.slug + '.local') + ' — ' + shot.label}">주소 — 화면 이름</span>
+    </div>
+    <img th:src="@{${shot.image}}" th:alt="${project.name + ' ' + shot.label + ' 화면'}" alt="">
+</figure>
+
+<!-- 배포 사이트 · 저장소 · 상세 링크 -->
+<div class="acts" th:fragment="actions(project, showDetail)">
+    <a th:if="${project.deployed}" class="chip go"
+       th:href="${project.liveUrl}" target="_blank" rel="noopener">배포 사이트 열기 ↗</a>
+    <span th:unless="${project.deployed}" class="chip" aria-disabled="true">배포 준비 중</span>
+    <a th:if="${project.repoLinked}" class="chip"
+       th:href="${project.repoUrl}" target="_blank" rel="noopener">GitHub ↗</a>
+    <a th:if="${project.deckLinked}" class="chip"
+       th:href="${project.deckUrl}" target="_blank" rel="noopener">발표자료 ↗</a>
+    <a th:if="${showDetail}" class="chip" th:href="@{'/projects/' + ${project.slug}}">상세 보기 →</a>
+</div>
+
+<!-- 슬라이더 조작부 -->
+<div class="ctrl" th:fragment="controls(total)" th:if="${total > 1}">
+    <button class="nav-b" type="button" data-prev aria-label="이전 화면">&#8592;</button>
+    <button class="nav-b" type="button" data-next aria-label="다음 화면">&#8594;</button>
+    <div class="dots" data-dots></div>
+    <span class="count" data-count
+          th:text="'01 / ' + ${#numbers.formatInteger(total, 2)}">01 / 01</span>
+</div>
+
+<!-- 기술 스택 -->
+<div class="stack" th:fragment="stack(items)">
+    <span class="tech" th:each="tech : ${items}" th:text="${tech}">Java 17</span>
+</div>
+
+<!-- 메인의 프로젝트 구역: 대표 화면 한 장씩 슬라이드로 넘긴다 -->
+<section class="sec" th:fragment="homeSection(kind, projects)" th:attr="data-section=${kind.path}">
+    <div class="grid-bg"></div>
+    <div class="sec-body">
+        <span class="lab" th:text="${kind.labelEn} + ' — ' + ${#numbers.formatInteger(projects.size(), 2)}">Personal — 04</span>
+        <h2 class="sh" th:text="${kind.label}">개인 프로젝트</h2>
+
+        <p class="empty" th:if="${projects.isEmpty()}"
+           th:text="'등록된 ' + ${kind.label} + '가 아직 없습니다.'">준비 중입니다</p>
+
+        <th:block th:unless="${projects.isEmpty()}">
+        <div class="slider" data-slider tabindex="0" role="region"
+             th:attr="aria-label=${kind.label} + ' 슬라이드'">
+            <div class="slider-window">
+                <div class="slider-track" data-track>
+                    <div class="slide" data-slide th:each="project : ${projects}">
+                        <div class="pane">
+                            <figure th:replace="~{fragments/project :: frame(${project}, ${project.coverShot})}"></figure>
+                            <div class="pinfo">
+                                <span class="lab dim" th:text="${project.sample} ? '예시 데이터' : '배포 완료'">배포 완료</span>
+                                <h3 class="nm" th:text="${project.name}">프로젝트</h3>
+                                <div class="tg" th:text="${project.tagline}">한 줄 소개</div>
+                                <p th:text="${project.summary}">짧은 소개</p>
+                                <div class="meta">
+                                    <div><b>Period</b><span th:text="${project.period}">기간</span></div>
+                                    <div><b>Stack</b><span th:text="${#strings.listJoin(project.primaryStack, ' · ')}">스택</span></div>
+                                </div>
+                                <div th:replace="~{fragments/project :: actions(${project}, true)}"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div th:replace="~{fragments/project :: controls(${projects.size()})}"></div>
+        </div>
+
+        <p class="more">
+            <a class="back" th:href="@{'/' + ${kind.path}}" th:text="${kind.label} + ' 전체 보기 →'">전체 보기</a>
+        </p>
+        </th:block>
+    </div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: Portfolio
+  thymeleaf:
+    # 개발 편의를 위한 임시 설정 — 운영 반영 전 제거(기본값 true)한다
+    cache: false
+
+server:
+  port: ${SERVER_PORT:8080}
+
+portfolio:
+  owner:
+    name: 김주형
+    initials: KJ
+    role: 백엔드 개발자
+    intro: >-
+      Spring Boot 로 서비스를 처음부터 배포까지 만듭니다.
+      화면을 쓰는 사람이 몇 번 헤매는지를 기준으로 판단하고, 만든 것은 실제로 띄워 두는 편입니다.
+    email: ${OWNER_EMAIL:hound9844@gmail.com}
+    github: ${OWNER_GITHUB:https://github.com/}

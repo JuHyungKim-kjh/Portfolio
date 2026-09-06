@@ -1,0 +1,27 @@
+# EC2 한 대에서 포트폴리오 앱 하나만 띄운다.
+#
+#   cd /opt/portfolio && docker compose --env-file .env up -d
+#
+# ★ 담다와 달리 서비스가 하나뿐이다 — DB 도, 호스트에서 붙일 데이터 파일도 없다.
+#   그래도 compose 를 쓰는 이유는 재시작 정책·포트 매핑·환경변수를 파일로 남겨 두면
+#   "지금 뜬 컨테이너가 어떤 설정인지" 를 서버에 들어가 확인할 수 있기 때문이다.
+
+services:
+  app:
+    image: ${ECR_IMAGE:?ECR_IMAGE 를 .env 에 넣으세요 — build-and-push.sh 가 찍어 줍니다}
+    container_name: portfolio-app
+    restart: unless-stopped
+    environment:
+      - TZ=Asia/Seoul
+      # ⚠ application.yaml 의 thymeleaf.cache 는 false 다(개발 편의용 임시 설정).
+      #   환경변수가 yaml 보다 우선하므로 배포본만 캐시를 켠다 — 코드는 갈라지지 않는다.
+      - SPRING_THYMELEAF_CACHE=true
+      # ★ 값 없이 이름만 적으면 .env 에 있을 때만 전달된다. 없으면 application.yaml 의
+      #   기본값이 그대로 쓰인다 — 여기에 빈 값을 넘기면 그 기본값을 덮어써 버린다.
+      - OWNER_EMAIL
+      - OWNER_GITHUB
+    ports:
+      # ★ 호스트 80 → 컨테이너 8080. EC2 마법사의 "HTTP 트래픽 허용"이 여는 포트가 80 이라
+      #   주소가 http://<IP> 로 끝난다(포트를 붙이지 않는다). 이력서에 적을 주소다.
+      #   ⚠ 컨테이너 안에서는 여전히 8080 이다(server.port). 왼쪽 숫자만 바뀐다.
+      - "80:8080"

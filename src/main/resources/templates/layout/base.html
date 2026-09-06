@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(pageTitle)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${pageTitle}">포트폴리오</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<aside class="rail" th:fragment="rail">
+    <a class="mark" th:href="@{/}" th:text="${owner.initials}" aria-label="홈으로">KJ</a>
+    <nav>
+        <a th:href="@{/}" data-section="home"
+           th:classappend="${active == 'home'} ? 'on'">Intro</a>
+        <a th:href="@{/personal}" data-section="personal"
+           th:classappend="${active == 'personal'} ? 'on'">Personal</a>
+        <a th:href="@{/team}" data-section="team"
+           th:classappend="${active == 'team'} ? 'on'">Team</a>
+    </nav>
+    <span class="foot">PORTFOLIO 2026</span>
+</aside>
+
+</body>
+</html>

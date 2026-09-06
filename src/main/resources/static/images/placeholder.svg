@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000" role="img">
+<title>화면 준비 중 — 임시 이미지</title>
+<rect width="1600" height="1000" fill="#EFF1F4"/>
+<rect width="1600" height="96" fill="#8A94A3"/>
+<rect x="48" y="28" width="150" height="40" rx="20" fill="#FFFFFF" opacity="0.9"/>
+<rect x="240" y="38" width="90" height="20" rx="10" fill="#FFFFFF" opacity="0.55"/>
+<rect x="352" y="38" width="90" height="20" rx="10" fill="#FFFFFF" opacity="0.35"/>
+<rect x="1372" y="30" width="180" height="36" rx="18" fill="#FFFFFF" opacity="0.8"/>
+<rect x="360" y="240" width="880" height="520" rx="18" fill="#FFFFFF"/>
+<rect x="700" y="400" width="200" height="140" rx="14" fill="#C9CDD6"/>
+<rect x="740" y="440" width="120" height="14" rx="7" fill="#FFFFFF"/>
+<rect x="740" y="472" width="80" height="14" rx="7" fill="#FFFFFF"/>
+<rect x="620" y="600" width="360" height="16" rx="8" fill="#C9CDD6"/>
+<rect x="690" y="640" width="220" height="16" rx="8" fill="#D9DDE4"/>
+<g opacity="0.62">
+<rect x="550" y="892" width="500" height="56" rx="28" fill="#0E1116"/>
+<text x="800" y="930" text-anchor="middle" font-family="Malgun Gothic, sans-serif" font-size="26" fill="#FFFFFF">화면 준비 중 · 임시 이미지</text>
+</g>
+</svg>

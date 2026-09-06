@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/base :: head(${kind.label} + ' · ' + ${owner.name})}">
+    <meta charset="UTF-8">
+    <title>프로젝트</title>
+</head>
+<body>
+
+<aside th:replace="~{layout/base :: rail}"></aside>
+
+<main id="app">
+    <div class="page">
+
+        <div class="phead">
+            <a class="back" th:href="@{/}">← Index</a>
+            <span class="lab lab-block"
+                  th:text="${kind.labelEn} + ' — ' + ${#numbers.formatInteger(projects.size(), 2)}">Personal — 04</span>
+            <h1 class="sh" th:text="${kind.label}">개인 프로젝트</h1>
+            <p class="lead">각 프로젝트의 주요 화면을 슬라이드로 넘겨 보고, 카드에서 바로 배포 사이트로 이동할 수 있습니다.</p>
+        </div>
+
+        <p class="empty" th:if="${projects.isEmpty()}"
+           th:text="'등록된 ' + ${kind.label} + '가 아직 없습니다.'">준비 중입니다</p>
+
+        <div class="rows">
+            <article class="row" th:each="project : ${projects}">
+
+                <div class="slider" data-slider tabindex="0" role="region"
+                     th:attr="aria-label=${project.name} + ' 화면 슬라이드'">
+                    <div class="slider-window">
+                        <div class="slider-track" data-track>
+                            <div class="slide" data-slide th:each="shot : ${project.shots}">
+                                <figure th:replace="~{fragments/project :: frame(${project}, ${shot})}"></figure>
+                            </div>
+                        </div>
+                    </div>
+                    <div th:replace="~{fragments/project :: controls(${project.shots.size()})}"></div>
+                </div>
+
+                <div class="pinfo">
+                    <span class="lab dim"
+                          th:text="${project.period} + (${project.sample} ? '' : ' · 배포 완료')">기간</span>
+                    <div th:if="${project.sample}"><span class="sample">예시 데이터</span></div>
+                    <h2 th:text="${project.name}">프로젝트</h2>
+                    <div class="tg" th:text="${project.tagline}">한 줄 소개</div>
+                    <p th:text="${project.summary}">짧은 소개</p>
+                    <p class="desc" th:if="${!#lists.isEmpty(project.description)}"
+                       th:text="${project.description[0]}">긴 소개</p>
+                    <div th:replace="~{fragments/project :: stack(${project.stack})}"></div>
+                    <div th:replace="~{fragments/project :: actions(${project}, true)}"></div>
+                </div>
+
+            </article>
+        </div>
+
+    </div>
+</main>
+
+<script th:src="@{/js/slider.js}" defer></script>
+</body>
+</html>

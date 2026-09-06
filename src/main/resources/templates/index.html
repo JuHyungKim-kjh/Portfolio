@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/base :: head(${owner.name} + ' · 포트폴리오')}">
+    <meta charset="UTF-8">
+    <title>포트폴리오</title>
+</head>
+<body class="home">
+
+<aside th:replace="~{layout/base :: rail}"></aside>
+
+<main id="app">
+
+    <section class="sec" data-section="home">
+        <div class="grid-bg"></div>
+        <div class="sec-body intro">
+            <span class="lab" th:text="${owner.name} + ' · ' + ${owner.role}">이름 · 역할</span>
+            <h1 class="hero">만든 것은<br>전부 <em>띄워 둡니다.</em></h1>
+            <p class="lead" th:text="${owner.intro}">소개</p>
+
+            <div class="stats">
+                <div class="stat">
+                    <b th:text="${#numbers.formatInteger(personalProjects.size(), 2)}">04</b>
+                    <span>Personal</span>
+                </div>
+                <div class="stat">
+                    <b th:text="${#numbers.formatInteger(teamProjects.size(), 2)}">03</b>
+                    <span>Team</span>
+                </div>
+                <div class="stat">
+                    <b th:text="${#numbers.formatInteger(deployedCount, 2)}">02</b>
+                    <span>Deployed</span>
+                </div>
+            </div>
+
+            <div class="chips">
+                <a class="chip go" th:href="@{/personal}">개인 프로젝트 →</a>
+                <a class="chip go" th:href="@{/team}">팀 프로젝트 →</a>
+                <a class="chip" th:href="'mailto:' + ${owner.email}" th:text="${owner.email}">메일</a>
+                <a class="chip" th:href="${owner.github}" target="_blank" rel="noopener">GitHub ↗</a>
+            </div>
+
+            <div class="hint"><i></i> SCROLL — 개인 프로젝트</div>
+        </div>
+    </section>
+
+    <section th:replace="~{fragments/project :: homeSection(${personalKind}, ${personalProjects})}"></section>
+    <section th:replace="~{fragments/project :: homeSection(${teamKind}, ${teamProjects})}"></section>
+
+</main>
+
+<script th:src="@{/js/slider.js}" defer></script>
+</body>
+</html>
