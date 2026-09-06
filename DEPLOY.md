@@ -253,6 +253,7 @@ cd /opt/portfolio && bash deploy.sh <계정>.dkr.ecr.<리전>.amazonaws.com/port
 |---|---|
 | `exec format error` | arm64 EC2 에 amd64 이미지. 인스턴스를 `t3.*` 로 바꾸거나 `PLATFORM=linux/arm64` 로 빌드 |
 | ECR 로그인 실패 (EC2) | 인스턴스에 `AmazonEC2ContainerRegistryReadOnly` 역할이 없다. 2장 |
+| Actions `Could not load credentials from any providers` | 저장소 Secret 이 **이름만 있고 값이 비어 있다.** `gh secret set` 은 프롬프트에서 값을 못 받아도 성공으로 표시한다 — `--body` 를 써서 다시 넣는다. 실패한 단계 로그의 `Run aws-actions/...` 그룹에 `aws-access-key-id` 가 아예 안 보이면 이 경우다(GitHub 은 빈 입력을 생략한다). 워크플로의 `시크릿 확인` 단계가 이제 이걸 먼저 잡는다 |
 | Actions 마지막 단계 `InvalidInstanceId` | 인스턴스 역할에 `AmazonSSMManagedInstanceCore` 가 없거나, 저장소 Variable `EC2_INSTANCE_ID` 가 틀렸다. 5장 |
 | Actions `Permission denied ./gradlew` | 워크플로의 `chmod +x gradlew` 가 빠졌다. git 에 100644 로 들어 있다 |
 | EC2 에서 `deploy.sh: /usr/bin/env: 'bash\r'` | `.sh` 가 CRLF 로 커밋됐다. `.gitattributes` 의 `*.sh text eol=lf` 를 확인 |
