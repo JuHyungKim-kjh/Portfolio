@@ -125,8 +125,8 @@ body.home #app {
 }
 .lab.dim { color: var(--text-dim); }
 .hero {
-  font-size: clamp(38px, 6.4vw, 84px);
-  line-height: 1.05;
+  font-size: clamp(30px, 4.2vw, 64px);
+  line-height: 1.15;
   margin: 18px 0 0;
   font-weight: 800;
   letter-spacing: -.03em;
@@ -439,7 +439,7 @@ body.home #app {
 
   /* 메인 — 세로 스냅 섹션이라 높이 여유를 확인하고 잡은 값이다
      (2560×919 기준 인트로 266px · 프로젝트 204px 남는다) */
-  .hero { font-size: clamp(38px, 6.4vw, 96px); }
+  .hero { font-size: clamp(30px, 4.6vw, 72px); }
   .stat b { font-size: clamp(30px, 1.6vw, 38px); }
   .pane .pinfo p { max-width: 52ch; font-size: clamp(16px, .8vw, 19px); }
   .pinfo .nm { font-size: clamp(24px, 2.6vw, 50px); }

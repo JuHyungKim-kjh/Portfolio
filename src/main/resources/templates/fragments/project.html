@@ -19,7 +19,7 @@
     <a th:if="${project.repoLinked}" class="chip"
        th:href="${project.repoUrl}" target="_blank" rel="noopener">GitHub ↗</a>
     <a th:if="${project.deckLinked}" class="chip"
-       th:href="${project.deckUrl}" target="_blank" rel="noopener">발표자료 ↗</a>
+       th:href="${project.deckUrl}" target="_blank" rel="noopener">프로젝트 소개서 ↗</a>
     <a th:if="${showDetail}" class="chip" th:href="@{'/projects/' + ${project.slug}}">상세 보기 →</a>
 </div>
 
