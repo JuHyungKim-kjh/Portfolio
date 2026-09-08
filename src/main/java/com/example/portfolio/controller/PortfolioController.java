@@ -4,6 +4,7 @@ import com.example.portfolio.config.OwnerProperties;
 import com.example.portfolio.domain.Project;
 import com.example.portfolio.domain.ProjectKind;
 import com.example.portfolio.service.ProjectService;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,8 +55,11 @@ public class PortfolioController {
     }
 
     private String listPage(ProjectKind kind, Model model) {
+        List<Project> projects = projectService.findByKind(kind);
         model.addAttribute("kind", kind);
-        model.addAttribute("projects", projectService.findByKind(kind));
+        model.addAttribute("projects", projects);
+        // 상단 바로가기 줄용. 거르는 일은 화면이 아니라 여기서 한다
+        model.addAttribute("liveProjects", projects.stream().filter(Project::isDeployed).toList());
         model.addAttribute("active", kind.getPath());
         return "project/list";
     }

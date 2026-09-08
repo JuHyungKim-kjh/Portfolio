@@ -19,6 +19,15 @@
             <p class="lead" th:text="${kind.lead}">구분 설명</p>
         </div>
 
+        <!-- 배포된 프로젝트로 바로 가는 줄. 목록을 그대로 걸러 쓰므로 항목이 늘면 칩도 는다 -->
+        <div class="sites-wrap" th:if="${!liveProjects.isEmpty()}">
+            <nav class="sites" aria-label="배포 사이트 바로가기">
+                <a th:each="p : ${liveProjects}" class="chip go" th:href="${p.liveUrl}"
+                   target="_blank" rel="noopener"
+                   th:text="${p.name} + ' 사이트 ↗'">사이트</a>
+            </nav>
+        </div>
+
         <p class="empty" th:if="${projects.isEmpty()}"
            th:text="'등록된 ' + ${kind.label} + '가 아직 없습니다.'">준비 중입니다</p>
 
@@ -57,5 +66,6 @@
 </main>
 
 <script th:src="@{/js/slider.js}" defer></script>
+<script th:src="@{/js/sites.js}" defer></script>
 </body>
 </html>

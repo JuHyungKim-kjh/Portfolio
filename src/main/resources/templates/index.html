@@ -33,8 +33,8 @@
             </div>
 
             <div class="chips">
-                <a class="chip go" th:href="@{/personal}">개인 프로젝트 →</a>
-                <a class="chip go" th:href="@{/team}">팀 프로젝트 →</a>
+                <a class="chip go" th:href="@{/personal}">개인 프로젝트 목록 →</a>
+                <a class="chip go" th:href="@{/team}">팀 프로젝트 목록 →</a>
                 <a class="chip" th:href="'mailto:' + ${owner.email}" th:text="${owner.email}">메일</a>
                 <a th:if="${owner.githubLinked}" class="chip" th:href="${owner.github}" target="_blank" rel="noopener">GitHub ↗</a>
             </div>

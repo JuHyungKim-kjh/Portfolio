@@ -21,7 +21,7 @@
         </div>
 
         <div class="dgrid">
-            <div>
+            <div class="dshots">
                 <div class="slider" data-slider tabindex="0" role="region"
                      th:attr="aria-label=${project.name} + ' 화면 갤러리'">
                     <div class="slider-window">
@@ -33,7 +33,9 @@
                     </div>
                     <div th:replace="~{fragments/project :: controls(${project.shots.size()})}"></div>
                 </div>
+            </div>
 
+            <div class="dblocks">
                 <div class="block">
                     <span class="lab">Overview</span>
                     <p class="prose" th:each="para : ${project.description}" th:text="${para}">상세 설명</p>

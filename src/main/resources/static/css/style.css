@@ -303,6 +303,11 @@ body.home #app {
   letter-spacing: .08em;
   margin-top: 8px;
 }
+/* 배포된 프로젝트로 바로 가는 줄. 넓은 화면에서는 줄바꿈해 스크롤이 아예 생기지 않는다 */
+.sites-wrap { position: relative; border-bottom: 1px solid var(--line); }
+.sites { display: flex; flex-wrap: wrap; gap: 8px; padding: 14px 0 16px; }
+.sites .chip { flex: 0 0 auto; white-space: nowrap; }
+
 .rows { display: flex; flex-direction: column; }
 .row {
   display: grid;
@@ -373,10 +378,14 @@ body.home #app {
 .dgrid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 300px;
+  grid-template-areas: "shots side" "blocks side";
   gap: clamp(24px, 4vw, 64px);
   margin-top: 44px;
   align-items: start;
 }
+.dshots { grid-area: shots; }
+.side   { grid-area: side; }
+.dblocks { grid-area: blocks; }
 /* 네 구역(Overview·My Role·Features·Troubleshooting)이 같은 폭을 쓴다.
    본문에만 상한을 주면 .item 의 구분선은 열 끝까지 뻗어 폭이 어긋나 보인다 */
 .block { margin-top: 44px; max-width: 880px; }
@@ -423,8 +432,44 @@ body.home #app {
   body.home #app { height: calc(100vh - 56px); }
   .sec { min-height: calc(100vh - 56px); }
   .pane, .row, .dgrid { grid-template-columns: 1fr; }
-  .side { position: static; }
+  /* 스택·링크가 네 구역을 지난 맨 끝으로 가지 않도록 순서만 바꾼다 */
+  .dgrid { grid-template-areas: "shots" "side" "blocks"; }
+  .side { position: static; margin-top: 18px; }
+
+  /* 바로가기 줄은 줄바꿈 대신 가로로 민다. 브라우저 기본 스크롤바는 이 화면과
+     어울리지 않아 감추고, 넘칠 때만 오른쪽 끝을 어둡게 해 더 있다고 알린다 */
+  .sites {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .sites::-webkit-scrollbar { display: none; }
+  .sites .chip { scroll-snap-align: start; }
+  .sites-wrap[data-over]::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 14px;
+    bottom: 16px;
+    width: 44px;
+    pointer-events: none;
+    background: linear-gradient(90deg, transparent, var(--ink));
+  }
   .hint { display: none; }
+
+  /* 여기까지가 구조 전환이고, 아래는 밀도 조정이다.
+     데스크톱 치수(56px·44px)를 그대로 두면 390px 화면에서 첫 화면의
+     상당 부분이 제목 위 여백으로 나간다 */
+  .page   { padding: 24px 16px 72px; }
+  .phead  { padding: 24px 0 20px; }
+  .row    { padding: 28px 0; gap: 18px; }
+  .dgrid  { margin-top: 24px; }
+  .block  { margin-top: 28px; }
+  .slider { margin-top: 18px; }
+  .ctrl   { margin-top: 16px; }
+  .lab    { letter-spacing: .16em; }
 }
 
 /* ── 초광폭 ──────────────────────────────────────────────
