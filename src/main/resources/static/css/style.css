@@ -431,7 +431,10 @@ body.home #app {
   .rail .foot { display: none; }
   body.home #app { height: calc(100vh - 56px); }
   .sec { min-height: calc(100vh - 56px); }
-  .pane, .row, .dgrid { grid-template-columns: 1fr; }
+  /* minmax(0, …) 없이 1fr 만 쓰면 열의 최소 크기가 콘텐츠의 min-content 가 된다.
+     슬라이더 트랙이 슬라이드 6장을 가로로 늘어놓은 flex 라 그 값이 1,676px 이고,
+     390px 화면에서 문서가 통째로 4배 넘쳤다. 데스크톱 규칙과 같은 가드를 준다 */
+  .pane, .row, .dgrid { grid-template-columns: minmax(0, 1fr); }
   /* 스택·링크가 네 구역을 지난 맨 끝으로 가지 않도록 순서만 바꾼다 */
   .dgrid { grid-template-areas: "shots" "side" "blocks"; }
   .side { position: static; margin-top: 18px; }
