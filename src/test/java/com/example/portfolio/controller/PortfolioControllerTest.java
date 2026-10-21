@@ -56,7 +56,7 @@ class PortfolioControllerTest {
         mockMvc.perform(get("/projects/cinepick"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("project/detail"))
-                .andExpect(content().string(containsString("http://15.164.221.135/")))
+                .andExpect(content().string(containsString("http://13.124.164.67/")))
                 .andExpect(content().string(containsString("/images/cinepick/01-main.jpg")));
     }
 
