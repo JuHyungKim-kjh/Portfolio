@@ -152,7 +152,7 @@
       "period": "2026.08 · 1개월",
       "color": "#4C8C4A",
       "liveUrl": "http://54.180.179.147/",
-      "repoUrl": "",
+      "repoUrl": "https://github.com/JuHyungKim-kjh/damda",
       "deckUrl": "/files/damda-deck.pdf",
       "summary": "공공 데이터로 만든 식품 데이터베이스를 얹어, 레시피를 무작위로 뽑아 주고 몸 상태에 맞는 한 끼를 짜 주고 남은 재료로 만들 수 있는 요리를 찾아 주는 서비스.",
       "description": [

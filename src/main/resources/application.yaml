@@ -18,7 +18,6 @@ portfolio:
       문제를 만나면 상황·원인·실측값과 버린 대안까지 남겨 같은 자리에서 두 번 헤매지 않게 하고,
       앞으로는 반복되는 업무를 자동화해 프로세스를 최적화하는 일까지 넓혀 가려 합니다.
     email: ${OWNER_EMAIL:hound9844@gmail.com}
-    # 비워 두면 메인의 GitHub 칩이 렌더되지 않는다(비공개 저장소는 방문자에게 404 다).
-    # 공개로 돌리면 여기에 주소를 넣거나, 재빌드 없이 EC2 의 .env 에
-    # OWNER_GITHUB=https://github.com/JuHyungKim-kjh 를 넣고 재기동하면 다시 나온다.
-    github: ${OWNER_GITHUB:}
+    # 값이 있을 때만 메인의 GitHub 칩이 렌더된다(OwnerProperties.isGithubLinked).
+    # 비공개 저장소로 보내면 방문자에게 404 라, 그때는 이 값을 비워 칩 자체를 없앤다.
+    github: ${OWNER_GITHUB:https://github.com/JuHyungKim-kjh}
