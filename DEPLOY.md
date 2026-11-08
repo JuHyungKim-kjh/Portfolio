@@ -17,11 +17,15 @@ git push main  ──▶ GitHub Actions  ──▶  ECR (portfolio)
 | | |
 |---|---|
 | 주소 | **http://3.34.68.7/** (탄력적 IP — 인스턴스를 껐다 켜도 바뀌지 않는다) |
-| 인스턴스 | `i-0000000000000000` · Ubuntu 26.04 LTS · x86_64 |
-| ECR | `000000000000.dkr.ecr.ap-northeast-2.amazonaws.com/portfolio` |
+| 인스턴스 | Ubuntu 26.04 LTS · x86_64 · t3.micro |
+| ECR | 리포지토리 이름 `portfolio` (리전 `ap-northeast-2`) |
 | 인스턴스 역할 | `portfolio-ec2-role` (ECR ReadOnly + SSMManagedInstanceCore) |
 | 배포 사용자 | IAM `portfolio-gha` — SSM 대상이 이 인스턴스 하나로 좁혀져 있다 |
 | 서버 안 경로 | `/opt/portfolio` (`docker-compose.yml` · `.env` · `deploy.sh`) |
+
+> **AWS 계정번호와 인스턴스 ID 는 이 저장소에 적지 않는다.** 공개 저장소라 굳이 남길 이유가
+> 없고, 필요할 때는 AWS 콘솔이나 `aws sts get-caller-identity` 로 바로 확인된다.
+> 인스턴스 ID 는 저장소 Variable `EC2_INSTANCE_ID` 에 있다.
 
 > ⚠ **인스턴스를 다시 만들면** 세 곳을 함께 고쳐야 한다 — 인스턴스 역할 연결,
 > 저장소 Variable `EC2_INSTANCE_ID`, `portfolio-gha` 인라인 정책의 인스턴스 ARN.
@@ -148,7 +152,9 @@ docker run --rm -p 8081:8080 -e SPRING_THYMELEAF_CACHE=true portfolio:local
 인라인 정책 — ⚠ `AmazonSSMFullAccess` 를 쓰지 말 것. 그 키로 **계정의 모든 EC2 에 임의 명령**을
 보낼 수 있게 된다. 인스턴스 하나로 좁힌다.
 ⚠ IAM 정책 문서는 **출력 가능한 ASCII 만** 받는다 — 자리표시자에 한글을 남기면
-`The specified value for policyDocument is invalid` 로 거부된다.
+`The specified value for policyDocument is invalid` 로 거부된다. 그래서 아래 JSON 의
+자리표시자도 한글이 아닌 0 으로 두었다. **`000000000000` 은 AWS 계정번호로,
+`i-0000000000000000` 은 인스턴스 ID 로 바꾼 뒤 저장한다** (둘 다 AWS 콘솔에서 확인된다).
 
 ```json
 {
